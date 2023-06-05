@@ -1,9 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonInput } from '@ionic/angular';
-import { format, formatDistance } from 'date-fns'
+import { format, formatDistance } from 'date-fns';
+import { Configuration, ChatCompletionRequestMessage, OpenAIApi } from 'openai';
+
+const configuration = new Configuration({
+  apiKey: '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',
+});
+const openai = new OpenAIApi(configuration);
 
 interface ChatMessage {
-  text: string;
+  text: any;
   date: string;
   isAI: boolean;
 }
@@ -14,24 +20,47 @@ interface ChatMessage {
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+  
+  ngOnInit(): void {
+    openai.listModels().then(a => {
+      console.log(a)
+    })
+  }
+
   title = "Open AI App Demo";
 
-  messages: ChatMessage[] = [
-    {
-      text: "This is a message from ..",
-      date: formatDistance(Date.now(),  new Date(Date.now()), { addSuffix: true }),
-      isAI: false
-    },
-    {
-      text: "This is a message from AI ..",
-      date: formatDistance(Date.now(),  new Date(Date.now()), { addSuffix: true }),
-      isAI: true
-    },
-  ];
+  messages: ChatMessage[] = [];
 
-  sendMessage(input: IonInput) {
+  async sendMessage(input: any) {
     console.log(input.value)
-    input.value = "";
+    input = input.value as ChatCompletionRequestMessage;
+
+    var completion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages:  [{
+        role: 'user',
+        content: input
+      }],
+    });
+
+    console.log(completion.data.choices[0].message?.content);
+
+    await this.messages.push(
+      {
+        text: input,
+        date: formatDistance(Date.now(),  new Date(Date.now()), { addSuffix: true }),
+        isAI: false
+      },
+    )
+    await this.messages.push(
+      {
+        text: completion.data.choices[0].message?.content,
+        date: formatDistance(Date.now(),  new Date(Date.now()), { addSuffix: true }),
+        isAI: true
+      },
+    )
+
+    input.value = '';
   }
 }
