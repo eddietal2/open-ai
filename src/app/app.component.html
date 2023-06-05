@@ -1,7 +1,42 @@
 <ion-grid>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{title}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
   <ion-row>
-    <ion-col id="chat-wrapper" size-xs="11" size-sm="10" size-md="8" size-lg="6">
-      <p>ChatGPT Test</p>
+    <ion-col size-xs="12" size-sm="11" size-md="8" size-lg="6">
+      <div style="margin-top: 10em;"></div>
+        <!-- Custom Angular Component (chat-message component) -->
+        <app-chat-message
+          *ngFor="let message of messages"
+          [message]="message.text"
+          [date]="message.date"
+          [isAI]="message.isAI">
+        </app-chat-message>
     </ion-col>
   </ion-row>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-input 
+          id="message-input"
+          #messageInput
+          type="text" 
+          placeholder="Send A Message"
+          (keyup.enter)="sendMessage(messageInput)"
+        ></ion-input>
+       
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button 
+          id="send-button"
+          (click)="sendMessage(messageInput)">
+          <ion-icon color="primary" size="large" name="send"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
 </ion-grid>
