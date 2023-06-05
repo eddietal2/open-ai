@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IonInput } from '@ionic/angular';
 import { format, formatDistance } from 'date-fns';
 import { Configuration, ChatCompletionRequestMessage, OpenAIApi } from 'openai';
+import { environment } from 'src/environments/environment';
 
 const configuration = new Configuration({
-  apiKey: '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',
+  apiKey: environment.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
