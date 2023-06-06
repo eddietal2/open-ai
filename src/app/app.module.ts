@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IonicModule } from '@ionic/angular';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
+import { ChatImageComponent } from './chat-image/chat-image.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChatMessageComponent
+    ChatMessageComponent,
+    ChatImageComponent
   ],
   imports: [
     BrowserModule,
