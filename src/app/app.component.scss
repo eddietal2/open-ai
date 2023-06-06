@@ -1,0 +1,52 @@
+ion-grid {
+    --ion-grid-padding: 0px;
+}
+ion-header {
+    
+    ion-toolbar {
+        --background: #0136b1;
+        --color: #fff;
+        position: fixed;
+        top: 0px;
+        z-index: 99;
+    }
+}
+ion-footer {
+    position: fixed;
+    bottom: 0px;
+    z-index: 99;
+    background: #fff;
+
+    #message-input {
+        position: relative;
+        left: 1em;
+        display: inline-block;
+    }
+    #send-button {
+        position: relative;
+        right: 1em;
+        display: inline-block;
+    }
+}
+
+.initial-message {
+    background: #dcdcdc;
+    height: auto;
+    width: 18rem;
+    border-radius: 5px;
+    text-align: center;
+    animation: initial-chat-message-slide-down 0.5s ease-out forwards;
+}
+
+@keyframes initial-chat-message-slide-down {
+    0% {
+      transform: translateY(-50px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+}
+
+.chat-wrapper {
+    padding-top: 5em;
+}
