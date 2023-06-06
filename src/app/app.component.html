@@ -4,10 +4,10 @@
     <ion-toolbar>
       <ion-title>{{title}}</ion-title>
       <ion-buttons slot="end">
-        <ion-button (click)="this.openAIService.changeChatText()">
+        <ion-button size="large" style="opacity: 1;" #changeChatTextButton (click)="this.openAIService.changeChatText(changeChatTextButton, changeChatImageButton)">
           <ion-icon color="light" name="text-outline"></ion-icon>
         </ion-button>
-        <ion-button (click)="this.openAIService.changeChatImage()">
+        <ion-button size="small" style="opacity: 0.5;"  #changeChatImageButton (click)="this.openAIService.changeChatImage(changeChatTextButton, changeChatImageButton)">
           <ion-icon color="light" name="image-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -15,6 +15,7 @@
   </ion-header>
 
   <ion-content #ionContent [scrollEvents]="true">
+    <!-- Text Chat -->
     <ion-row *ngIf="this.openAIService.chatType == 'text'" class="chat-wrapper ion-justify-content-center">
       <div 
         *ngIf="this.openAIService.messages.length == 0"
@@ -33,6 +34,8 @@
           </app-chat-message>
       </ion-col>
     </ion-row>
+
+    <!-- Image Chat -->
     <ion-row *ngIf="this.openAIService.chatType == 'image'" class="chat-wrapper ion-justify-content-center">
       <div 
         *ngIf="this.openAIService.images.length == 0"

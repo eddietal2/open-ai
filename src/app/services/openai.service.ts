@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit, ViewChild } from '@angular/core';
 import { Configuration, ChatCompletionRequestMessage, OpenAIApi, CreateChatCompletionResponse } from 'openai';
 import { format, formatDistance } from 'date-fns';
 import { environment } from 'src/environments/environment';
-import { IonContent, IonInput } from '@ionic/angular';
+import { IonButton, IonContent, IonInput } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 
 const configuration = new Configuration({
@@ -25,11 +25,14 @@ interface ChatImage {
 @Injectable({
   providedIn: 'root'
 })
-export class OpenAIService {
-
+export class OpenAIService implements OnInit {
+  
   constructor(
     private toastController: ToastController
   ) { }
+
+  ngOnInit(): void {
+  }
   
   listModels() {
     openai.listModels().then(a => {
@@ -38,11 +41,23 @@ export class OpenAIService {
   }
   
   chatType = "text";
-  changeChatText() {
-    this.chatType = "text"
+  changeChatText(changeChatTextButton: IonButton, changeChatImageButton: IonButton) {
+    this.chatType = "text";
+    changeChatTextButton['el'].style.transition = '0.25s';
+    changeChatImageButton['el'].style.transition = '0.25s';
+    changeChatTextButton.size = 'large';
+    changeChatTextButton['el'].style.opacity = '1';
+    changeChatImageButton.size = 'small';
+    changeChatImageButton['el'].style.opacity = '0.5';
   }
-  changeChatImage() {
-    this.chatType = "image"
+  changeChatImage(changeChatTextButton: IonButton, changeChatImageButton: IonButton) {
+    this.chatType = "image";
+    changeChatTextButton['el'].style.transition = '0.25s';
+    changeChatImageButton['el'].style.transition = '0.25s';
+    changeChatTextButton.size = 'small';
+    changeChatTextButton['el'].style.opacity = '0.5';
+    changeChatImageButton.size = 'large';
+    changeChatImageButton['el'].style.opacity = '1';
   }
 
   messages: ChatMessage[] = [];
