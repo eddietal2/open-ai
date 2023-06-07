@@ -1,8 +1,6 @@
 # OPEN-AI
 This project demo is here: http://18.224.51.178/
 
-https://platform.openai.com/docs/api-reference/chat/create?lang=node.js
-
 [June 7th Update]
 * App may not be working today. Will update tomorrow.
 * Still need to test on different browser and devices
@@ -26,6 +24,7 @@ Formats: mp3, mp4, mpeg, mpga, m4a, wav, or webm.
 
 ## A lil' about the Tech Stack ~
 [OpenAI 3.2]\
+https://platform.openai.com/docs/api-reference/chat/create?lang=node.js\
 Angular 14.2.7 (I love Angular's modularity, scalibility, TypeScript integration, and dependency injection <3)\
 Ionic 7\
 NodeJS 18.12\
