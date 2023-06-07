@@ -20,17 +20,17 @@ This chat simply takes an audio file and translates the audio to English.
 Formats: mp3, mp4, mpeg, mpga, m4a, wav, or webm.
 
 ## A lil' about the Tech Stack ~
-[OpenAI 3.2]
-Angular 14.2.7 (I love Angular's modularity, scalibility, TypeScript integration, and dependency injection <3)
-Ionic 7
-NodeJS 18.12
-AWS EC2 T2.MIRCO Instance w/ Amazon Linux 2023
-NGINX (Web Server)
+[OpenAI 3.2]\
+Angular 14.2.7 (I love Angular's modularity, scalibility, TypeScript integration, and dependency injection <3)\
+Ionic 7\
+NodeJS 18.12\
+AWS EC2 T2.MIRCO Instance w/ Amazon Linux 2023\
+NGINX (Web Server)\
 
 ## Upcoming Additions
-[No Capacitor for Native iOS & Android Apps .. yet]
-[No application server .. yet]
-[No database .. yet]
+[No Capacitor for Native iOS & Android Apps .. yet]\
+[No application server .. yet]\
+[No database .. yet]\
 
 ------------
 
