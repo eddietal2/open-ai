@@ -13,10 +13,10 @@ export class AppComponent implements OnInit {
     openAIService.listModels();
   }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
   }
 
-  title = "Open AI App Demo";
+  title = "Open AI Demo";
 
   
 }

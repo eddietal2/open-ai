@@ -4,22 +4,26 @@
     <ion-toolbar>
       <ion-title>{{title}}</ion-title>
       <ion-buttons slot="end">
-        <ion-button (click)="this.openAIService.changeChatText()">
+        <ion-button size="large" style="opacity: 1;" #changeChatTextButton (click)="this.openAIService.changeChatText(messageInput, audioInput, changeChatTextButton, changeChatImageButton, changeChatAudioButton)">
           <ion-icon color="light" name="text-outline"></ion-icon>
         </ion-button>
-        <ion-button (click)="this.openAIService.changeChatImage()">
+        <ion-button size="small" style="opacity: 0.5;"  #changeChatImageButton (click)="this.openAIService.changeChatImage(messageInput, audioInput, changeChatTextButton, changeChatImageButton, changeChatAudioButton)">
           <ion-icon color="light" name="image-outline"></ion-icon>
+        </ion-button>
+        <ion-button size="small" style="opacity: 0.5;"  #changeChatAudioButton (click)="this.openAIService.changeChatAudio(messageInput, audioInput, changeChatTextButton, changeChatImageButton, changeChatAudioButton)">
+          <ion-icon color="light" name="mic-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
   <ion-content #ionContent [scrollEvents]="true">
+    <!-- Text Chat -->
     <ion-row *ngIf="this.openAIService.chatType == 'text'" class="chat-wrapper ion-justify-content-center">
       <div 
         *ngIf="this.openAIService.messages.length == 0"
         class="initial-message">
-          <p>Start chatting by sending a message.</p>
+          <p>Start chatting with Alfred by sending a message.</p>
       </div>
 
       <ion-col size-xs="12" size-sm="11" size-md="8" size-lg="6">
@@ -27,12 +31,14 @@
           <!-- <img src="{{this.openAIService.image}}" alt="" srcset=""> -->
           <app-chat-message
             *ngFor="let message of this.openAIService.messages"
-            [message]="message.text"
+            [message]="message.message"
             [date]="message.date"
             [isAI]="message.isAI">
           </app-chat-message>
       </ion-col>
     </ion-row>
+
+    <!-- Image Chat -->
     <ion-row *ngIf="this.openAIService.chatType == 'image'" class="chat-wrapper ion-justify-content-center">
       <div 
         *ngIf="this.openAIService.images.length == 0"
@@ -50,18 +56,45 @@
         </app-chat-image>
       </ion-col>
     </ion-row>
+
+    <!-- Audio Chat -->
+    <ion-row *ngIf="this.openAIService.chatType == 'audio'" class="chat-wrapper ion-justify-content-center">
+      <div 
+        *ngIf="this.openAIService.translations.length == 0"
+        class="initial-message">
+          <p>Record audio, or upload an .MP3 file to translate it's audio to English.</p>
+      </div>
+
+      <ion-col size-xs="12" size-sm="11" size-md="8" size-lg="6">
+        <app-chat-translation
+          *ngFor="let text of this.openAIService.translations"
+          [filename]="text.filename"
+          [message]="text.message"
+          [date]="text.date"
+          [isAI]="text.isAI">
+        </app-chat-translation>
+      </ion-col>
+    </ion-row>
+
   </ion-content>
 
   <ion-footer>
     <ion-row>
       <ion-col size="10">
         <ion-input 
-          id="message-input"
           #messageInput
-          type="text" 
-          placeholder="Send A Message"
+          type="text"
+          placeholder="Send a Message"
           >
-        </ion-input></ion-col>
+        </ion-input>
+        <input
+          style="display: none;" 
+          #audioInput
+          type="file"
+          (change)="this.openAIService.tappedAudioInput($event)"
+          placeholder="Select Audio"
+          >
+      </ion-col>
       <ion-col class="ion-text-right" size="2">
         <ion-button 
           id="send-button"
@@ -71,8 +104,15 @@
         </ion-button>
         <ion-button 
           id="send-button"
+          accept="image/png, image/jpeg"
           *ngIf="this.openAIService.chatType == 'image'"
           (click)="this.openAIService.sendMessageImage(messageInput, ionContent)">
+          <ion-icon name="send"></ion-icon>
+        </ion-button>
+        <ion-button 
+          id="send-button"
+          *ngIf="this.openAIService.chatType == 'audio'"
+          (click)="this.openAIService.sendMessageAudio(audioInput, ionContent)">
           <ion-icon name="send"></ion-icon>
         </ion-button>
       </ion-col>

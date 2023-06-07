@@ -1,5 +1,15 @@
 <div [ngClass]="!isAI ? 'chat-message' : 'chat-message-ai'">
     <p>Search Term: {{message}}</p>
-    <img src="{{url}}">
-    <p style="text-align: right; color: #999;">{{date}}</p>
+    <img src="{{url}}" download="ai_image">
+    <ion-buttons slot="start">
+        <ion-button (click)="downloadImage(url)">
+            <ion-icon slot="start" name="download-outline"></ion-icon>
+            Download
+        </ion-button>
+
+        <!-- <a href="../../assets/images/purple_anime_wolf.png" download="purple_anime_wolf">Download</a> -->
+    </ion-buttons>
+    <ion-buttons slot="end">
+        <p style="color: #999;">{{date}}</p>
+    </ion-buttons>
 </div>

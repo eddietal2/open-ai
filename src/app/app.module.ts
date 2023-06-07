@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { IonicModule } from '@ionic/angular';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { ChatImageComponent } from './chat-image/chat-image.component';
+import { ChatTranslationComponent } from './chat-translation/chat-translation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatMessageComponent,
-    ChatImageComponent
+    ChatImageComponent,
+    ChatTranslationComponent
   ],
   imports: [
     BrowserModule,

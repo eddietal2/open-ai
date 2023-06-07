@@ -1,6 +1,6 @@
 <div [ngClass]="!isAI ? 'chat-message' : 'chat-message-ai'">
-    <p class="user-type" *ngIf="isAI">ALFRED</p>
-    <p class="user-type" *ngIf="!isAI">YOU</p>
+    <p style="font-size: 0.75em;">Filename: {{filename}}</p>
+    <b>Translation ---</b>
     <p>{{message}}</p>
     <p style="text-align: right; color: #999;">{{date}}</p>
 </div>

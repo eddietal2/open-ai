@@ -1,6 +1,9 @@
 ion-grid {
     --ion-grid-padding: 0px;
 }
+ion-button {
+    transition: 0.25s;
+}
 ion-header {
     
     ion-toolbar {
@@ -33,6 +36,7 @@ ion-footer {
     background: #dcdcdc;
     height: auto;
     width: 18rem;
+    padding: 0.5em;
     border-radius: 5px;
     text-align: center;
     animation: initial-chat-message-slide-down 0.5s ease-out forwards;
@@ -48,5 +52,5 @@ ion-footer {
 }
 
 .chat-wrapper {
-    padding: 5em;
+    padding: 5em 0.5em;
 }

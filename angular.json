@@ -167,6 +167,9 @@
               "browserTarget": "openai:build:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
