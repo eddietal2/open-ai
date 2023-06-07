@@ -6,6 +6,8 @@ This project demo is here: http://18.224.51.178/
 * Still need to test on different browser and devices
 * Having CORS policy issues with downloading images from Image chat.
 
+------------
+
 This project is made to test OPEN AI's API. I just wanted to build something cool, and learn a little more about AI development. This web app has 3 pages: Text Chat, Image Chat, and Translation Chat (best names I could come up with lol).
 
 ## Text Chat
@@ -31,7 +33,7 @@ NGINX (Web Server)
 ## Upcoming Additions
 [No Capacitor for Native iOS & Android Apps .. yet]\
 [No application server .. yet]\
-[No database .. yet]\
+[No database .. yet]
 
 ------------
 
