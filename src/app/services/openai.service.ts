@@ -1,22 +1,17 @@
-import { Injectable, OnInit, ViewChild } from '@angular/core';
-import { Configuration, ChatCompletionRequestMessage, OpenAIApi, CreateChatCompletionResponse } from 'openai';
-import { format, formatDistance } from 'date-fns';
+import { Injectable, OnInit } from '@angular/core';
+import { Configuration, OpenAIApi } from 'openai';
+import { formatDistance } from 'date-fns';
 import { environment } from 'src/environments/environment';
 import { IonButton, IonContent, IonInput } from '@ionic/angular';
-import { ToastController } from '@ionic/angular';
+import { ToastController, LoadingController } from '@ionic/angular';
 
-class CustomFormData extends FormData {
-  getHeaders() {
-      return {}
-  }
-}
-
+// OPEN AI Config
 const configuration = new Configuration({
   apiKey: environment.OPENAI_API_KEY,
-  formDataCtor: CustomFormData
 });
 const openai = new OpenAIApi(configuration);
 
+// Chat Message Interfaces
 interface ChatMessage {
   message: any;
   date: string;
@@ -39,12 +34,10 @@ interface ChatTranslations {
   providedIn: 'root'
 })
 export class OpenAIService implements OnInit {
-  chatType = "text";
-  chosenFile!: File;
-  fileData: any;
-  
+
   constructor(
-    private toastController: ToastController
+    private toastController: ToastController,
+    private loadingController: LoadingController,
   ) { }
 
   ngOnInit(): void {
@@ -56,11 +49,14 @@ export class OpenAIService implements OnInit {
     })
   }
 
+  chosenFile!: File;
   tappedAudioInput(e: any) {
     this.chosenFile = e.target.files[0];
     console.log(e.target.files[0])
   }
   
+  // For changing pages with top-right toolbar
+  chatType = "text";
   changeChatText(messageInput: IonInput,  audioInput: any, changeChatTextButton: IonButton, changeChatImageButton: IonButton, changeChatAudioButton: IonButton) {
     this.chatType = "text";
     messageInput.placeholder = "Send a Message";
@@ -106,13 +102,20 @@ export class OpenAIService implements OnInit {
     changeChatAudioButton.size = 'large';
     changeChatAudioButton['el'].style.opacity = '1';
   }
+  
 
+  // Messages
   messages: ChatMessage[] = [];
   async sendMessageText(input: IonInput, ionContent: IonContent) {
+
+    const loading = await this.loadingController.create({
+      message: 'Generating Message',
+    })
+
+    loading.present()
     
     var completion = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      
+      model: "gpt-3.5-turbo", 
       messages:  [{
         role: 'user',
         content: input['value'] as string,
@@ -147,6 +150,8 @@ export class OpenAIService implements OnInit {
       },
     );
 
+    loading.dismiss();
+
     // Clear Input Field and Scroll to the bottom of the page
     input.value = '';
     ionContent.scrollToBottom(500);
@@ -154,6 +159,13 @@ export class OpenAIService implements OnInit {
 
   images: ChatImage[] = [];
   async sendMessageImage(input: IonInput, ionContent: IonContent) {
+
+    const loading = await this.loadingController.create({
+      message: 'Generating Message',
+    })
+
+    loading.present()
+
     const response = await openai.createImage({
       prompt: input.value as string,
       n: 2,
@@ -169,7 +181,7 @@ export class OpenAIService implements OnInit {
   
       await toast.present();
       throw Error(e.message);
-    });
+    })
 
     await this.images.push(
       {
@@ -179,14 +191,23 @@ export class OpenAIService implements OnInit {
         isAI: true
       },
     );
+
+    loading.dismiss();
     
     // Clear Input Field and Scroll to the bottom of the page
     input.value = '';
     ionContent.scrollToBottom(500);
   }
 
+  fileData: any;
   translations: ChatTranslations[] = [];
   async sendMessageAudio(input: any, ionContent: IonContent) {
+
+    const loading = await this.loadingController.create({
+      message: 'Generating Message',
+    })
+
+    loading.present()
     
     await openai.createTranslation(
       this.chosenFile,
@@ -215,6 +236,8 @@ export class OpenAIService implements OnInit {
         isAI: true
       },
     );
+
+    loading.dismiss();
     
     // Clear Input Field and Scroll to the bottom of the page
     input.value = '';
