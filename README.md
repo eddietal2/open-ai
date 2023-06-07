@@ -2,6 +2,7 @@
 This project demo is here: http://18.224.51.178/
 
 [June 7th Update]
+* App may not be working today. Will update tomorrow.
 * Still need to test on different browser and devices
 * Having CORS policy issues with downloading images from Image chat.
 
@@ -25,7 +26,7 @@ Angular 14.2.7 (I love Angular's modularity, scalibility, TypeScript integration
 Ionic 7\
 NodeJS 18.12\
 AWS EC2 T2.MIRCO Instance w/ Amazon Linux 2023\
-NGINX (Web Server)\
+NGINX (Web Server)
 
 ## Upcoming Additions
 [No Capacitor for Native iOS & Android Apps .. yet]\
