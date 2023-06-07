@@ -1,6 +1,8 @@
 # OPEN-AI
 This project demo is here: http://18.224.51.178/
 
+https://platform.openai.com/docs/api-reference/chat/create?lang=node.js
+
 [June 7th Update]
 * App may not be working today. Will update tomorrow.
 * Still need to test on different browser and devices
