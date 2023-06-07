@@ -8,6 +8,12 @@
     opacity: 0;
     animation: message-slide-in-ai 0.5s ease-out 0.5s forwards;
 }
+.user-type {
+  font-size: 0.65em;
+  font-weight: 800;
+  border-bottom: 1px solid;
+  padding-bottom: 0.5em;
+}
 @keyframes message-slide-in-ai {
     0% {
       transform: translateX(50px);

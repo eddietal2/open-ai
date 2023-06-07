@@ -2,8 +2,7 @@
 This project demo is here: http://18.224.51.178/
 
 [June 7th Update]
-* App may not be working today. Will update tomorrow.
-* Still need to test on different browser and devices
+* Still need to test on different browser and devices outside Chrome & macOS/iOS
 * Having CORS policy issues with downloading images from Image chat.
 
 ------------
@@ -54,7 +53,7 @@ If you want to clone this project and run it locally on your machine, please fol
 4) Run `ng serve` for a dev server. 
     * Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-5) Run `ng serve --host [ip address]` for a dev server that runs over your network. This way, you can test it on different devices on the same network.
+5) Run `ng serve --host [ip address]` for a dev server that runs over your network. This way, you can test it on different devices on the same network, like your phone.
     * ng serve --host 192.0.123.444 (example)
     * If you dont know your IP addres, use `ifconfig [MAC]` to check your network settings.
 

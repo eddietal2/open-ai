@@ -7,6 +7,7 @@ import { ToastController, LoadingController } from '@ionic/angular';
 
 // Fix 'localVarFormParams.getHeaders is not a function' bug 
 // when trying to translate audio @ sendMessageAudio()
+// https://github.com/openai/openai-node/issues/75
 class CustomFormData extends FormData {
   getHeaders() {
       return {}
@@ -27,7 +28,8 @@ interface ChatMessage {
   isAI: boolean;
 }
 interface ChatImage {
-  url: any;
+  imageDataURL: any;
+  imageBlob: Blob,
   message: string,
   date: string;
   isAI: boolean;
@@ -77,7 +79,7 @@ export class OpenAIService implements OnInit {
   }
   changeChatImage(messageInput: IonInput, audioInput: any, changeChatTextButton: IonButton, changeChatImageButton: IonButton, changeChatAudioButton: IonButton) {
     this.chatType = "image";
-    messageInput.placeholder = "Search for an image to generate";
+    messageInput.placeholder = "What Image do you want to generate?";
     messageInput['el'].style.display = 'block';
     audioInput.style.display = 'none';
 
@@ -106,6 +108,8 @@ export class OpenAIService implements OnInit {
     changeChatAudioButton['el'].style.opacity = '1';
   }
   
+  // OpenAI API Error Codes
+  // https://platform.openai.com/docs/guides/error-codes
 
   // Messages
   messages: ChatMessage[] = [];
@@ -171,8 +175,8 @@ export class OpenAIService implements OnInit {
 
     const response = await openai.createImage({
       prompt: input.value as string,
-      n: 2,
-      size: "512x512",
+      size: "1024x1024",
+      response_format: 'b64_json'
     }).catch(async (e: Error) => {
 
       const toast = await this.toastController.create({
@@ -181,14 +185,51 @@ export class OpenAIService implements OnInit {
         duration: 1500,
         position: 'top',
       });
-  
+
+      input.value = '';
+      await ionContent.scrollToBottom(500);
       await toast.present();
+      await loading.dismiss();
       throw Error(e.message);
     })
+    
+    // To create a blob from a base64 string, use the atob function.
+    // b64JSON is encoded, A binary 'JSON' string containing base64-encoded data.
+    // A string in which each character in the string is treated as a byte of binary data.
+    let b64JSON = response.data.data[0].b64_json as string;
+    let decodeImage = atob(b64JSON);
+
+    // Create an array of byte values from each character of the string.
+    const byteNumbers = new Array(decodeImage.length);
+    for (let i = 0; i < decodeImage.length; i++) {
+        byteNumbers[i] = decodeImage.charCodeAt(i);
+    }
+
+    // Convert the byte numbers array to an Uint8Array.
+    const byteArray = new Uint8Array(byteNumbers);
+    
+    // Create new Blob from byteArray.
+    // Blobs represent raw immutable data.
+    // Make sure that each image gets downloaded as a PNG
+    const imageToBlob = new Blob([byteArray], {type: 'image/png'});
+    console.clear();
+    console.log(b64JSON)
+    console.log(imageToBlob)
+
+    // Create Image from Blob
+    // Download Image
+    const reader = new FileReader;
+    reader.addEventListener('load', () => {
+      const image = new Image;
+      image.src = reader.result as string;
+      document.body.appendChild(image);
+    });
+    reader.readAsDataURL(imageToBlob);
 
     await this.images.push(
       {
-        url: response.data.data[0].url,
+        imageDataURL: "data:image/png;base64," + b64JSON,
+        imageBlob: imageToBlob,
         message: input.value as string,
         date: formatDistance(Date.now(),  new Date(Date.now()), { addSuffix: true }),
         isAI: true

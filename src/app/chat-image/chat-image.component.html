@@ -1,8 +1,9 @@
 <div [ngClass]="!isAI ? 'chat-message' : 'chat-message-ai'">
-    <p>Search Term: {{message}}</p>
-    <img src="{{url}}" download="ai_image">
+    <p class="user-type">Search Term</p>
+    <p>{{message}}</p>
+    <img src="{{imageDataURL}}">
     <ion-buttons slot="start">
-        <ion-button (click)="downloadImage(url)">
+        <ion-button (click)="downloadImage(imageDataURL)">
             <ion-icon slot="start" name="download-outline"></ion-icon>
             Download
         </ion-button>
