@@ -5,9 +5,18 @@ import { environment } from 'src/environments/environment';
 import { IonButton, IonContent, IonInput } from '@ionic/angular';
 import { ToastController, LoadingController } from '@ionic/angular';
 
+// Fix 'localVarFormParams.getHeaders is not a function' bug 
+// when trying to translate audio @ sendMessageAudio()
+class CustomFormData extends FormData {
+  getHeaders() {
+      return {}
+  }
+}
+
 // OPEN AI Config
 const configuration = new Configuration({
   apiKey: environment.OPENAI_API_KEY,
+  formDataCtor: CustomFormData
 });
 const openai = new OpenAIApi(configuration);
 
@@ -49,12 +58,6 @@ export class OpenAIService implements OnInit {
     })
   }
 
-  chosenFile!: File;
-  tappedAudioInput(e: any) {
-    this.chosenFile = e.target.files[0];
-    console.log(e.target.files[0])
-  }
-  
   // For changing pages with top-right toolbar
   chatType = "text";
   changeChatText(messageInput: IonInput,  audioInput: any, changeChatTextButton: IonButton, changeChatImageButton: IonButton, changeChatAudioButton: IonButton) {
@@ -161,7 +164,7 @@ export class OpenAIService implements OnInit {
   async sendMessageImage(input: IonInput, ionContent: IonContent) {
 
     const loading = await this.loadingController.create({
-      message: 'Generating Message',
+      message: 'Generating Image from your prompt. This make take a few moments ...',
     })
 
     loading.present()
@@ -199,12 +202,18 @@ export class OpenAIService implements OnInit {
     ionContent.scrollToBottom(500);
   }
 
+  chosenFile!: File;
+  tappedAudioInput(e: any) {
+    this.chosenFile = e.target.files[0];
+    console.log(e.target.files[0])
+  }
+
   fileData: any;
   translations: ChatTranslations[] = [];
   async sendMessageAudio(input: any, ionContent: IonContent) {
 
     const loading = await this.loadingController.create({
-      message: 'Generating Message',
+      message: 'Generating Translation',
     })
 
     loading.present()
