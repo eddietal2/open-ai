@@ -1,16 +1,18 @@
 <div [ngClass]="!isAI ? 'chat-message' : 'chat-message-ai'">
     <p class="user-type">Search Term</p>
-    <p>{{message}}</p>
+    <p>"{{message}}"</p>
     <img src="{{imageDataURL}}">
-    <ion-buttons slot="start">
-        <ion-button (click)="downloadImage(imageDataURL)">
-            <ion-icon slot="start" name="download-outline"></ion-icon>
-            Download
-        </ion-button>
-
-        <!-- <a href="../../assets/images/purple_anime_wolf.png" download="purple_anime_wolf">Download</a> -->
-    </ion-buttons>
-    <ion-buttons slot="end">
-        <p style="color: #999;">{{date}}</p>
-    </ion-buttons>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="danger" (click)="downloadImage(imageDataURL)">
+                <ion-icon color="danger" slot="start" name="download-outline"></ion-icon>
+                Download
+            </ion-button>
+    
+            <!-- <a href="../../assets/images/purple_anime_wolf.png" download="purple_anime_wolf">Download</a> -->
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <p style="color: #999; font-size: 0.65em;">{{date}}</p>
+        </ion-buttons>
+    </ion-toolbar>
 </div>

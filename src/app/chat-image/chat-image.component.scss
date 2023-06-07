@@ -1,12 +1,12 @@
 .chat-message-ai {
-    background: #0136b1;
-    color: #ffffff;
+    background: #fff;
+    border-bottom: 1px solid #999;
+    color: #0136b1;
     padding: 0.5em;
     border-radius: 5px;
-    margin: 1em;
     height: auto;
     opacity: 0;
-    animation: message-slide-in-ai 0.5s ease-out 0.5s forwards;
+    animation: image-slide-in-ai 0.5s ease-out 0.5s forwards;
 }
 .user-type {
   font-size: 0.65em;
@@ -14,7 +14,7 @@
   border-bottom: 1px solid;
   padding-bottom: 0.5em;
 }
-@keyframes message-slide-in-ai {
+@keyframes image-slide-in-ai {
     0% {
       transform: translateX(50px);
     }

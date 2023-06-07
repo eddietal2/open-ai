@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonButton } from '@ionic/angular';
 import { OpenAIService } from './services/openai.service';
 
 @Component({
@@ -13,7 +14,6 @@ export class AppComponent implements OnInit {
     openAIService.listModels();
   }
   ngOnInit(): void {
-    // throw new Error('Method not implemented.');
   }
 
   title = "Open AI Demo";

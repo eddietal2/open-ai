@@ -1,5 +1,6 @@
 .chat-message {
     background: #f3f3f3;
+    box-shadow: 1px 1px 5px #999;
     padding: 0.5em;
     border-radius: 5px;
     margin: 1em;
@@ -9,6 +10,7 @@
 }
 .chat-message-ai {
     background: #0136b1;
+    box-shadow: 1px 1px 5px #999;
     color: #ffffff;
     padding: 0.5em;
     border-radius: 5px;
@@ -20,7 +22,6 @@
 .user-type {
   font-size: 0.65em;
   font-weight: 800;
-  border-bottom: 1px solid;
   padding-bottom: 0.5em;
 }
 @keyframes message-slide-in-user {
