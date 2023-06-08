@@ -1,8 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Configuration, OpenAIApi } from 'openai';
-import { formatDistance } from 'date-fns';
+import { formatDistance, format } from 'date-fns';
 import { environment } from 'src/environments/environment';
-import { IonButton, IonContent, IonIcon, IonInput } from '@ionic/angular';
+import { IonButton, IonContent, IonFooter, IonIcon, IonInput } from '@ionic/angular';
 import { ToastController, LoadingController } from '@ionic/angular';
 
 // Fix 'localVarFormParams.getHeaders is not a function' bug 
@@ -52,21 +52,32 @@ export class OpenAIService implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.listAIModels()
   }
   
-  listModels() {
+  models: any;
+  listAIModels() {
     openai.listModels().then(a => {
-      console.log(a)
+      console.clear();
+      this.models = a.data.data;
+      for (let i = 0; i < this.models.length; i++) {
+        this.models[i]['created'] = format(this.models[i]['created'], 'MM/dd/yyyy')
+      }
     })
+  }
+
+  getCurrentAIModelData() {
+    openai.retrieveModel('')
   }
 
   // For changing pages with top-right toolbar
   chatType = "text";
-  changeChatText(messageInput: IonInput,  audioInput: any, changeChatTextButton: IonIcon, changeChatImageButton: IonIcon, changeChatAudioButton: IonIcon) {
+  changeChatText(messageInput: IonInput,  audioInput: any, changeChatTextButton: IonIcon, changeChatImageButton: IonIcon, changeChatAudioButton: IonIcon, changeToInfoPageButton: IonIcon, ionFooter: IonFooter) {
     this.chatType = "text";
     messageInput.placeholder = "Send a Message";
     messageInput['el'].style.display = 'block';
     audioInput.style.display = 'none';
+    ionFooter['el'].style.height = '66px';
 
     changeChatTextButton.size = 'large';
     changeChatTextButton['el'].style.opacity = '1';
@@ -82,12 +93,18 @@ export class OpenAIService implements OnInit {
     changeChatAudioButton['el'].style.opacity = '0.5';
     changeChatAudioButton['el'].style.color = '#fff';
     changeChatAudioButton['el'].style.borderBottom = 'none';
+
+    changeToInfoPageButton.size = 'small';
+    changeToInfoPageButton['el'].style.opacity = '0.5';
+    changeToInfoPageButton['el'].style.color = '#fff';
+    changeToInfoPageButton['el'].style.borderBottom = 'none';
   }
-  changeChatImage(messageInput: IonInput, audioInput: any, changeChatTextButton: IonIcon, changeChatImageButton: IonIcon, changeChatAudioButton: IonIcon) {
+  changeChatImage(messageInput: IonInput, audioInput: any, changeChatTextButton: IonIcon, changeChatImageButton: IonIcon, changeChatAudioButton: IonIcon, changeToInfoPageButton: IonIcon, ionFooter: IonFooter) {
     this.chatType = "image";
     messageInput.placeholder = "What Image do you want to generate?";
     messageInput['el'].style.display = 'block';
     audioInput.style.display = 'none';
+    ionFooter['el'].style.height = '66px';
 
     changeChatTextButton.size = 'small';
     changeChatTextButton['el'].style.opacity = '0.5';
@@ -103,12 +120,18 @@ export class OpenAIService implements OnInit {
     changeChatAudioButton['el'].style.opacity = '0.5';
     changeChatAudioButton['el'].style.color = '#fff';
     changeChatAudioButton['el'].style.borderBottom = 'none';
+
+    changeToInfoPageButton.size = 'small';
+    changeToInfoPageButton['el'].style.opacity = '0.5';
+    changeToInfoPageButton['el'].style.color = '#fff';
+    changeToInfoPageButton['el'].style.borderBottom = 'none';
   }
-  changeChatAudio(messageInput: IonInput, audioInput: any, changeChatTextButton: IonIcon, changeChatImageButton: IonIcon, changeChatAudioButton: IonIcon) {
+  changeChatAudio(messageInput: IonInput, audioInput: any, changeChatTextButton: IonIcon, changeChatImageButton: IonIcon, changeChatAudioButton: IonIcon, changeToInfoPageButton: IonIcon, ionFooter: IonFooter) {
     this.chatType = "audio";
     messageInput['el'].style.display = 'none';
     messageInput.placeholder = "Send Audio";
     audioInput.style.display = 'block';
+    ionFooter['el'].style.height = '66px';
 
     changeChatTextButton.size = 'small';
     changeChatTextButton['el'].style.opacity = '0.5';
@@ -124,6 +147,36 @@ export class OpenAIService implements OnInit {
     changeChatAudioButton['el'].style.opacity = '1';
     changeChatAudioButton['el'].style.color = '#f5d806';
     changeChatAudioButton['el'].style.borderBottom = '#f5d806 2px solid';
+
+    changeToInfoPageButton.size = 'small';
+    changeToInfoPageButton['el'].style.opacity = '0.5';
+    changeToInfoPageButton['el'].style.color = '#fff';
+    changeToInfoPageButton['el'].style.borderBottom = 'none';
+  }
+  changeToInfoPage(messageInput: IonInput, audioInput: any, changeChatTextButton: IonIcon, changeChatImageButton: IonIcon, changeChatAudioButton: IonIcon, changeToInfoPageButton: IonIcon, ionFooter: IonFooter) {
+    this.chatType = "info";
+    messageInput['el'].style.display = 'none';
+    ionFooter['el'].style.height = '0px';
+
+    changeChatTextButton.size = 'small';
+    changeChatTextButton['el'].style.opacity = '0.5';
+    changeChatTextButton['el'].style.color = '#fff';
+    changeChatTextButton['el'].style.borderBottom = 'none';
+
+    changeChatImageButton.size = 'small';
+    changeChatImageButton['el'].style.opacity = '0.5';
+    changeChatImageButton['el'].style.color = '#fff';
+    changeChatImageButton['el'].style.borderBottom = 'none';
+
+    changeChatAudioButton.size = 'small';
+    changeChatAudioButton['el'].style.opacity = '0.5';
+    changeChatAudioButton['el'].style.color = '#fff';
+    changeChatAudioButton['el'].style.borderBottom = 'none';
+
+    changeToInfoPageButton.size = 'large';
+    changeToInfoPageButton['el'].style.opacity = '1';
+    changeToInfoPageButton['el'].style.color = '#f5d806';
+    changeToInfoPageButton['el'].style.borderBottom = '#f5d806 2px solid';
   }
   
   // OpenAI API Error Codes

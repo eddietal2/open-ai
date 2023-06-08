@@ -11,12 +11,12 @@ import { OpenAIService } from './services/openai.service';
 export class AppComponent implements OnInit {
   
   constructor(public openAIService: OpenAIService) {
-    openAIService.listModels();
+    openAIService.listAIModels();
   }
   ngOnInit(): void {
   }
 
-  title = "Open AI Demo";
+  title = "OpenAI";
 
   
 }
