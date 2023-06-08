@@ -6,7 +6,7 @@
     margin: 1em;
     height: auto;
     opacity: 0;
-    animation: message-slide-in-user 0.5s ease-out forwards;
+    animation: message-slide-in-user 0.5s ease-out 0.25s forwards;
 }
 .chat-message-ai {
     background: #0136b1;
