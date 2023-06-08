@@ -1,10 +1,15 @@
 ion-grid {
     --ion-grid-padding: 0px;
 }
-ion-button {
+ion-icon, ion-footer {
     transition: 0.25s;
 }
 ion-header {
+    ion-title {
+        padding-inline-start: 1em;
+      padding-inline-end: 1em;
+      text-align: left !important;
+    }
     
     ion-toolbar {
         --background: #0136b1;
@@ -18,7 +23,11 @@ ion-footer {
     position: fixed;
     bottom: 0px;
     z-index: 99;
-    background: #fff;
+    background: rgba(17, 17, 17, 0.767);
+
+    ion-col {
+        color: #fff;
+    }
 
     #message-input {
         position: relative;
@@ -29,11 +38,34 @@ ion-footer {
         position: relative;
         right: 1em;
         display: inline-block;
+        --background: #0136b1;
     }
 }
 
+   #audio-input {
+    position: relative;
+    top: 12.5px;
+  }
+  #audio-input::file-selector-button {
+    content: 'Select some files';
+    display: inline-block;
+    height: 36px;
+    background: #f5d806;
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+  }
+
 .initial-message {
-    background: #dcdcdc;
+    background: #faf1ab;
+    box-shadow: 1px 1px 5px #999;
     height: auto;
     width: 18rem;
     padding: 0.5em;
@@ -41,7 +73,13 @@ ion-footer {
     text-align: center;
     animation: initial-chat-message-slide-down 0.5s ease-out forwards;
 }
-
+.about-creator-propic {
+    border-radius: 100px;
+    height: 6.25rem; width: 6.25rem;
+}
+.about-creator-text {
+    font-size: 0.85em;
+}
 @keyframes initial-chat-message-slide-down {
     0% {
       transform: translateY(-50px);
@@ -53,4 +91,24 @@ ion-footer {
 
 .chat-wrapper {
     padding: 5em 0.5em;
+}
+.chat-wrapper-images {
+    padding: 5em 0em;
+}
+.ai-desc {
+    font-size: 0.8em;
+}
+.model {
+    padding-bottom: 1em;
+
+    .name{
+        font-size: 1.2em;
+        color: #0136b1;
+    }
+    .created{
+        font-size: 0.75em;
+    }
+    .owned-by{
+        font-size: 0.75em;
+    }
 }

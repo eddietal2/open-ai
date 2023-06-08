@@ -1,6 +1,11 @@
 <div [ngClass]="!isAI ? 'chat-message' : 'chat-message-ai'">
-    <p class="user-type" *ngIf="isAI">ALFRED</p>
-    <p class="user-type" *ngIf="!isAI">YOU</p>
+    <div>
+        <span class="user-type" *ngIf="isAI">😎 ALFRED</span>
+        <span class="user-type" *ngIf="!isAI">YOU</span>
+        <span *ngIf="isAI" style="float: right; color: #fff;  font-size: 0.65em;">{{date}}</span>
+        <span *ngIf="!isAI" style="float: right; color: #222;  font-size: 0.65em;">{{date}}</span>
+    </div>
     <p>{{message}}</p>
-    <p style="text-align: right; color: #999;">{{date}}</p>
+    
 </div>
+<!-- https://unicode.org/emoji/charts/full-emoji-list.html -->

@@ -1,4 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Platform } from '@ionic/angular';
+// https://www.npmjs.com/package/file-saver (Chrome iOS Download workaround)
+// https://stackoverflow.com/questions/23872902/chrome-download-attribute-not-working-to-replace-the-original-name/35290284#35290284
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-chat-image',
@@ -6,34 +10,35 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./chat-image.component.scss']
 })
 export class ChatImageComponent implements OnInit {
-  @Input() url = '';
+  @Input() imageDataURL = '';
+  @Input() imageBlob = new Blob();
   @Input() message = '';
   @Input() date = '';
   @Input() isAI = false;
 
-  constructor() { }
+  constructor(
+    private platform: Platform
+  ) { }
 
   ngOnInit(): void {
   }
 
-  async downloadImage(url: string) {
-    console.log(url);
-    const image = await fetch(url, {
-      method: 'GET',
-      headers: {
-        accept: 'application/json'
-      }
-    })
-    console.log(image);
-    // const imageBlog = await image.blob()
-    // const imageURL = URL.createObjectURL(imageBlog);
+  async downloadImage(imageDataURL: any) {
 
-    // const link = document.createElement('a')
-    // link.href = imageURL
-    // link.download = 'ai_image'
-    // document.body.appendChild(link)
-    // link.click()
-    // document.body.removeChild(link)
+    if(this.platform.is('ios')) {
+      saveAs(imageDataURL, 'ai_image_'+ Date.now());
+    } else {
+
+      const link = document.createElement('a')
+      link.href = imageDataURL
+      link.download = 'ai_image_'+ Date.now();
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    }
+
+
+  
   }
 
 }
