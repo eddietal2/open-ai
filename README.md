@@ -1,6 +1,8 @@
 # OPEN-AI
 This project demo is here: http://18.224.51.178/
 
+![]https://github.com/eddietal2/open-ai/blob/main/src/assets/images/openai-demo.gif
+
 [June 7th Update]
 * Still need to test on different browser and devices outside Chrome & macOS/iOS
 * Having CORS policy issues with downloading images from Image chat.
