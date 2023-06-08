@@ -1,15 +1,12 @@
 # OPEN-AI
-This project demo is here: http://18.224.51.178/
+Demo is here: http://18.224.51.178/
+
+This project is made to test OPEN AI's API. I just wanted to build something cool, and learn a little more about AI development. This web app has 3 pages: Text Chat, Image Chat, and Translation Chat (best names I could come up with lol).
 
 ![](https://github.com/eddietal2/open-ai/blob/main/src/assets/images/openai-demo.gif)
 
-[June 7th Update]
-* Still need to test on different browser and devices outside Chrome & macOS/iOS
-* Having CORS policy issues with downloading images from Image chat.
-
 ------------
 
-This project is made to test OPEN AI's API. I just wanted to build something cool, and learn a little more about AI development. This web app has 3 pages: Text Chat, Image Chat, and Translation Chat (best names I could come up with lol).
 
 ## Text Chat
 Ask Alfred, this Apps AI, anything. Just don't say anything funny because he has absolutely no humor at all. Unless you ask to make a joke, and that's a whole other rabbit hole to deal with.
