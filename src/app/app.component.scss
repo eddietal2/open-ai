@@ -68,11 +68,16 @@ ion-footer {
     box-shadow: 1px 1px 5px #999;
     height: auto;
     width: 18rem;
-    padding: 0.5em;
+    padding: 0.75em;
     border-radius: 5px;
-    text-align: center;
+    margin: 0 auto !important;
     animation: initial-chat-message-slide-down 0.5s ease-out forwards;
 }
+@media screen and (min-width: 500px) {
+    .initial-message {
+        width: 30rem;
+      }
+    }
 .about-creator-propic {
     border-radius: 100px;
     height: 6.25rem; width: 6.25rem;
